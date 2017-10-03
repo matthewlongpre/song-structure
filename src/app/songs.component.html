@@ -1,0 +1,25 @@
+<div *ngIf="selectedSong">
+
+  <div>
+    <input class="form-control" [(ngModel)]="selectedSong.title" placeholder="name">
+  </div>
+
+</div>
+
+<h2>My songs</h2>
+<ul class="songs">
+  <li 
+  *ngFor="let song of songs"
+  (click)="onSelect(song)"
+  [class.selected]="song === selectedSong"
+  >
+    {{song.title}}
+  </li>
+</ul>
+
+<div *ngIf="selectedSong">
+  <h2>
+    {{selectedSong.title | uppercase}} is my song
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>

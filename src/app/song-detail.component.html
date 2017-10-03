@@ -1,0 +1,28 @@
+<div *ngIf="song">
+
+    <h2>{{song.title}}</h2>
+
+    <div class="structure d-flex">
+        <div *ngFor="let section of song.sections" class="bars bars-{{section.length}}" [ngStyle]="{'width': section.length / getTotal() * 100 + '%'}">
+            {{section.title}}
+            
+        </div>
+    </div>
+
+    Total: {{ getTotal() }} bars
+
+    <div style="margin-top:3rem;">
+        <input class="form-control" [(ngModel)]="song.title" placeholder="name" />
+    </div>
+    <div class="row" *ngFor="let section of song.sections">
+        <div class="col-4">
+            <input class="form-control" [(ngModel)]="section.title" placeholder="title" />
+        </div>
+        <div class="col-4">
+            <input class="form-control" [(ngModel)]="section.length" placeholder="length" type="number" />
+        </div>
+    </div>
+
+    <button class="btn btn-primary" (click)="goBack()">Back</button>
+
+</div>
