@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
 import { SongsComponent } from './songs.component';
 import { SongDetailComponent } from './song-detail.component';
@@ -16,12 +18,13 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     SongsComponent,
     SongDetailComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule.forRoot(),
   ],
   providers: [SongService],
   bootstrap: [AppComponent]

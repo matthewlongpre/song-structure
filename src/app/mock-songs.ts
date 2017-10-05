@@ -39,7 +39,7 @@ export const SONGS: Song[] = [
   },
   {
     id: 2,
-    artist: 'Arctic Monkeys',
+    artist: 'The Beatles',
     title: 'We Can Work it Out',
     sections: [{
       id: 1,

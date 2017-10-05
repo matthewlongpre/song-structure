@@ -8,6 +8,7 @@
     <div class="structure d-flex">
         <div *ngFor="let section of song.sections" class="bars bars-{{section.length}} p-3" [ngStyle]="{'width': section.length / getTotal() * 100 + '%'}">
             {{section.title}}
+            <div>{{section.length}}</div>
         </div>
     </div>
 
