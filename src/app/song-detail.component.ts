@@ -13,6 +13,7 @@ import { SongService } from './song.service';
 })
 
 export class SongDetailComponent implements OnInit {
+    sub: any;
     constructor(
         private songService: SongService,
         private route: ActivatedRoute,
@@ -21,10 +22,17 @@ export class SongDetailComponent implements OnInit {
     @Input() song: Song;
 
     ngOnInit(): void {
-        console.log(this)
+        // console.log(this)
         this.route.paramMap
-        .switchMap((params: ParamMap) => this.songService.getSong(+params.get('id')))
-        .subscribe(song => this.song = song);
+        // .switchMap((params: ParamMap) => this.songService.getSong(+params.get('id')))
+        // .subscribe(song => this.song = song);
+        this.sub = this.route.params.subscribe(params => {
+            let id = Number.parseInt(params['id']);
+            console.log('getting person with id: ', id);
+            this.songService
+                .get(id)
+                .subscribe(p => this.song = p);
+        });
     }
 
     getTotal(): number {

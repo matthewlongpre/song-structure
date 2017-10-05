@@ -27,7 +27,7 @@ export class SongsComponent implements OnInit {
 
   getSongs(): void {
     this.songService.getSongs()
-    .then(songs => this.songs = songs);
+    // .then(songs => this.songs = songs);
   }
 
   gotoDetail(): void {
