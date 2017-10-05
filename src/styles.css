@@ -24,3 +24,10 @@ body {
 .bar-length-input input {
   max-width: 75px;
 }
+
+.text-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+}
