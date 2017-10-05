@@ -42,8 +42,8 @@ export class SongService {
     //     return this.getSongs()
     //             .then(songs => songs.find(song => song.id === id))
     // }
-}
 
+}
 
 function mapPersons(response: Response): Song[] {
     // The response of the API has a results
@@ -60,14 +60,6 @@ function toPerson(r: any): Song {
     });
     console.log('Parsed person:', person);
     return person;
-}
-
-// to avoid breaking the rest of our app
-// I extract the id from the person url
-// that's because the Starwars API doesn't have an id field
-function extractId(personData: any) {
-    let extractedId = personData.url.replace('http://swapi.co/api/people/', '').replace('/', '');
-    return parseInt(extractedId);
 }
 
 function mapPerson(response: Response): Song {
