@@ -20,6 +20,7 @@ export class SongDetailComponent implements OnInit {
         private route: ActivatedRoute,
         private location: Location
     ) {}
+
     @Input() song: Song;
 
     ngOnInit(): void {
@@ -54,18 +55,8 @@ export class SongDetailComponent implements OnInit {
         return returnTitle;
     }
 
-    updateSong(song) {
-        this.songService.updateSong(song).subscribe(
-            data => {
-                // refresh the list
-                // this.getFoods();
-                return true;
-            },
-            error => {
-                console.error("Error saving song!");
-                return Observable.throw(error);
-            }
-        );
+    formChanges(data: any) {
+        this.song = data;
     }
 
 }

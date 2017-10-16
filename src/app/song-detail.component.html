@@ -20,35 +20,7 @@
         <h5>Total: {{ getTotal() }} bars</h5>
     </div>
 
-    <song-form [songDetail]="song"></song-form>
-
-    <!-- <div class="mt-3 mb-3">
-        <input class="form-control" [(ngModel)]="song.artist" placeholder="artist" />
-    </div>
-
-    <div class="mt-3 mb-3">
-        <input class="form-control" [(ngModel)]="song.title" placeholder="name" />
-    </div>
-
-    <div class="row">
-        <div class="col-4">
-            <h6>Section title:</h6>
-        </div>
-        <div class="col-4">
-            <h6>Bar length:</h6>
-        </div>
-    </div>
-
-    <div class="row mb-2" *ngFor="let section of song.sections">
-        <div class="col-4">
-            <input class="form-control" [(ngModel)]="section.title" placeholder="title" />
-        </div>
-        <div class="col-4 bar-length-input">
-            <input class="form-control" [(ngModel)]="section.bars" placeholder="bars" type="number" />
-        </div>
-    </div>
-    
-    <button (click)="updateSong(song)" class="mt-3 btn btn-primary">Save</button> -->
+    <song-form [songDetail]="song" (formChanges)="formChanges($event)"></song-form>
 
     <button class="mt-3 btn" (click)="goBack()">Back</button>
 

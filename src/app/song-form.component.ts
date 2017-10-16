@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SongModel } from './song-model';
 import { SongService } from './song.service';
 import { Observable } from 'rxjs/Observable';
@@ -15,12 +15,20 @@ export class SongFormComponent {
         private songService: SongService,
         private formBuilder: FormBuilder
     ){}
-    // model = new SongModel(0,'','');
-    submitted = false;
-    onSubmit() { this.submitted = true;}
 
-    @Input()
-    songDetail: any;
+    submitted = false;
+    onSubmit(data) { 
+        this.submitted = true;
+        if (this.songDetail) {
+            this.updateSong(data);
+        } else {
+            this.createSong(data);
+        }
+    }
+
+    @Input() songDetail: any;
+
+    @Output() formChanges = new EventEmitter();
 
     ngOnInit(){
         if (this.songDetail) {
@@ -39,6 +47,15 @@ export class SongFormComponent {
                 ])
             });            
         }
+        this.onChanges();
+    }
+
+    onChanges(): void {
+        this.addForm.valueChanges.subscribe(val => {
+            console.log(val)
+            this.formChanges.emit(val);
+            return val;
+        });
     }
 
     setSections(){
@@ -46,27 +63,25 @@ export class SongFormComponent {
         this.songDetail.sections.forEach(x => {
             control.push(this.formBuilder.group({title: x.title, bars: x.bars}))
         })
+        this.formBuilder.group({
+            title: [this.songDetail.sections.title, Validators.required],
+            bars: [this.songDetail.sections.bars, Validators.required]
+        })
     }
 
     initSection(){
-        if (this.songDetail){
-            return this.formBuilder.group({
-                title: [this.songDetail.sections.title, Validators.required],
-                bars: [this.songDetail.sections.bars, Validators.required]
-            })
-        } else {
-            return this.formBuilder.group({
-                title: ['',Validators.required],
-                bars: ['',Validators.required]
-            })
-        }
+        return this.formBuilder.group({
+            title: ['',Validators.required],
+            bars: ['',Validators.required]
+        })
     }
 
-    addLink() {
+    addSection() {
         const control = <FormArray>this.addForm.controls['sections'];
         control.push(this.initSection());
     }
-    removeLink(i: number) {
+    
+    removeSection(i: number) {
         const control = <FormArray>this.addForm.controls['sections'];
         control.removeAt(i);
     }
@@ -79,9 +94,7 @@ export class SongFormComponent {
         };
         this.songService.createSong(song).subscribe(
             data => {
-                console.log(song)
-                // refresh the list
-                // this.getFoods();
+                // TO DO: refresh the list
                 return true;
             },
             error => {
@@ -90,6 +103,24 @@ export class SongFormComponent {
             }
         );
     }
+
+    updateSong(data: any): void {
+        let song = {
+            title: data._value.title,
+            artist: data._value.artist,
+            sections: data._value.sections
+        };
+        this.songService.updateSong(song).subscribe(
+            song => {
+                return true;
+            },
+            error => {
+                console.error("Error saving song!");
+                return Observable.throw(error);
+            }
+        );
+    }
+
     // TODO: Remove this when we're done
     // get diagnostic() { return JSON.stringify(this.model); }
 }

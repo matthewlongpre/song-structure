@@ -14,14 +14,14 @@ export class SongService {
     constructor(private http: Http) {
     }
 
+    currentSong: string;
+
     getSongs(): Promise<Song[]> {
-        console.log('getSongs')
         let song$ = this.http
             .get(`${this.baseUrl}/songs.json`, { headers: this.getHeaders() })
             .toPromise()
             .then(mapSongs)
             .catch(handleError);
-            console.log(song$)
         return song$;
     }
 
@@ -31,7 +31,8 @@ export class SongService {
         return headers;
     }
 
-    get(id: number): Observable<Song> {
+    get(id: any): Observable<Song> {
+        this.currentSong = id;
         let song$ = this.http
             .get(`${this.baseUrl}/songs/${id}.json`, { headers: this.getHeaders() })
             .map(mapSong);
@@ -46,11 +47,10 @@ export class SongService {
     }
 
     updateSong(song) {
+        song.id = this.currentSong;
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let body = JSON.stringify(song);
-        console.log('updateSong');
-        console.log(body);
         return this.http.put(`${this.baseUrl}/songs/${song.id}.json`, body, options).map((res: Response) => res.json());
     }
 
@@ -89,8 +89,6 @@ function mapSong(response: Response): Song {
 }
 
 function handleError(error: any) {
-    // log error
-    // could be something more sofisticated
     let errorMsg = error.message || `Yikes! There was a problem with our hyperdrive device and we couldn't retrieve your data!`
     console.error(errorMsg);
     // instead of Observable we return a rejected Promise
