@@ -1,7 +1,8 @@
 import { Injectable }  from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 import { Song } from './song';
 // import { SONGS } from './mock-songs';
@@ -13,27 +14,45 @@ export class SongService {
     constructor(private http: Http) {
     }
 
-    getSongs(): Observable<Song[]> {
-        let people$ = this.http
-            .get(`${this.baseUrl}/songs`, { headers: this.getHeaders() })
-            .map(mapPersons);
-        return people$;
+    getSongs(): Promise<Song[]> {
+        console.log('getSongs')
+        let song$ = this.http
+            .get(`${this.baseUrl}/songs.json`, { headers: this.getHeaders() })
+            .toPromise()
+            .then(mapSongs)
+            .catch(handleError);
+            console.log(song$)
+        return song$;
     }
 
     private getHeaders() {
-        // I included these headers because otherwise FireFox
-        // will request text/html instead of application/json
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         return headers;
     }
+
     get(id: number): Observable<Song> {
-        let person$ = this.http
+        let song$ = this.http
             .get(`${this.baseUrl}/songs/${id}.json`, { headers: this.getHeaders() })
-            .map(mapPerson);
-        return person$;
+            .map(mapSong);
+        return song$;
     }
-    
+
+    createSong(song) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let body = JSON.stringify(song);
+        return this.http.post(`${this.baseUrl}/songs.json`, body, options).map((res: Response) => res.json());
+    }
+
+    updateSong(song) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        let body = JSON.stringify(song);
+        console.log('updateSong');
+        console.log(body);
+        return this.http.put(`${this.baseUrl}/songs/${song.id}.json`, body, options).map((res: Response) => res.json());
+    }
 
     // getSongs():  Promise<Song[]> {
     //     return Promise.resolve(SONGS);
@@ -45,24 +64,35 @@ export class SongService {
 
 }
 
-function mapPersons(response: Response): Song[] {
-    // The response of the API has a results
-    // property with the actual results
-    return response.json().results.map(toPerson)
+function mapSongs(response: Response): Song[] {
+    let resultObj = response.json();
+    var result = Object.keys(resultObj).map(function (key) {
+        resultObj[key].id = key;
+        return resultObj[key];
+    });
+    return result.map(toSong)
 }
 
-function toPerson(r: any): Song {
-    let person = <Song>({
+function toSong(r: any): Song {
+    let song = <Song>({
         id: r.id,
         title: r.title,
         artist: r.artist,
         sections: r.sections
     });
-    console.log('Parsed person:', person);
-    return person;
+    console.log('Parsed song:', song);
+    return song;
 }
 
-function mapPerson(response: Response): Song {
-    // toPerson looks just like in the previous example
-    return toPerson(response.json());
+function mapSong(response: Response): Song {
+    return toSong(response.json());
+}
+
+function handleError(error: any) {
+    // log error
+    // could be something more sofisticated
+    let errorMsg = error.message || `Yikes! There was a problem with our hyperdrive device and we couldn't retrieve your data!`
+    console.error(errorMsg);
+    // instead of Observable we return a rejected Promise
+    return Promise.reject(errorMsg);
 }

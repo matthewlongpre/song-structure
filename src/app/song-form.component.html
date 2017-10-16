@@ -1,0 +1,25 @@
+<form #heroForm="ngForm" [formGroup]="addForm" novalidate (ngSubmit)="createSong(addForm)">
+    <div class="form-group">
+        <label for="name">Song Title</label>
+        <input type="text" class="form-control" id="title" required formControlName="title" name="title"> 
+    </div>
+    <div class="form-group">
+        <label for="artist">Artist</label>
+        <input type="text" class="form-control" id="artist" required formControlName="artist" name="artist">
+    </div>
+    <div formArrayName="sections">
+        <div *ngFor="let address of addForm.controls.sections.controls; let i=index">
+            <div>
+                <span>Section {{i + 1}}</span>
+                <span *ngIf="addForm.controls.sections.controls.length > 1"><a (click)="removeLink(i)">REMOVE</a></span>
+            </div>
+            <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+            <div [formGroupName]="i" class="row">
+                <div class="col-6"><input class="form-control mb-3" type="text" placeholder="Section Title" formControlName="title"></div>
+                <div class="col-6"><input class="form-control mb-3" type="number" placeholder="Bars" formControlName="bars"></div>
+            </div>
+        </div>
+        <div class="mb-3"><a (click)="addLink()">add</a></div>
+    </div>
+    <button type="submit" [disabled]="!addForm.valid" class="btn btn-success">Submit</button>
+</form>

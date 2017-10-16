@@ -6,6 +6,6 @@ export class Song {
     id: number;
     order: number;
     title: string;
-    length: number;
+    bars: number;
   }>;
 }
