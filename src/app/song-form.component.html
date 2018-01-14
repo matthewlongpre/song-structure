@@ -1,4 +1,6 @@
+
 <form #heroForm="ngForm" [formGroup]="addForm" novalidate (ngSubmit)="onSubmit(addForm)">
+    <div class="form-panel">
     <div class="form-group">
         <label for="name">Song Title</label>
         <input type="text" class="form-control" id="title" required [formControl]="addForm.controls['title']" name="title"> 
@@ -21,5 +23,7 @@
         </div>
         <div class="mb-3"><a (click)="addSection()">add</a></div>
     </div>
+    </div>
     <button type="submit" [disabled]="!addForm.valid" class="btn btn-success">Submit</button>
+    <button class="btn btn-secondary" (click)="deleteSong()">Delete</button>
 </form>

@@ -54,6 +54,11 @@ export class SongService {
         return this.http.put(`${this.baseUrl}/songs/${song.id}.json`, body, options).map((res: Response) => res.json());
     }
 
+    deleteSong() {
+        console.log(`${this.baseUrl}/songs/${this.currentSong}.json`)
+        return this.http.delete(`${this.baseUrl}/songs/${this.currentSong}.json`);
+    }
+
     // getSongs():  Promise<Song[]> {
     //     return Promise.resolve(SONGS);
     // }

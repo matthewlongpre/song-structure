@@ -7,15 +7,16 @@
 </div>
 
 <h2>My songs</h2>
-<ul class="songs">
-  <li 
+<div class="list-group">
+  <a href="javascript:" 
   *ngFor="let song of songs"
+  class="list-group-item list-group-item-action"
   (click)="onSelect(song)"
   [class.selected]="song === selectedSong"
   >
     {{song.title}}
-  </li>
-</ul>
+  </a>
+</div>
 
 <div *ngIf="selectedSong">
   <h2>

@@ -20,7 +20,8 @@
         <h5>Total: {{ getTotal() }} bars</h5>
     </div>
 
-    <song-form [songDetail]="song" (formChanges)="formChanges($event)"></song-form>
+    
+        <song-form [songDetail]="song" (formChanges)="formChanges($event)"></song-form>
 
     <button class="mt-3 btn" (click)="goBack()">Back</button>
 

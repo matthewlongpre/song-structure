@@ -121,6 +121,19 @@ export class SongFormComponent {
         );
     }
 
+    deleteSong(): void {
+        console.log('deleteSong');
+        this.songService.deleteSong().subscribe(
+            song => {
+                return true;
+            },
+            error => {
+                console.error("Error deleting song!");
+                return Observable.throw(error);
+            }
+        );
+    }
+
     // TODO: Remove this when we're done
     // get diagnostic() { return JSON.stringify(this.model); }
 }
