@@ -1,0 +1,128 @@
+{
+  "songs" : [
+    "arc43034tgj" : {
+      "id" : 1,
+      "title": "Do I Wanna Know",
+      "artist": "Arctic Monkeys",
+      "sections" : [ {
+        "id" : 1,
+        "length" : 4,
+        "order" : 0,
+        "title" : "Intro"
+      }, {
+        "id" : 2,
+        "length" : 16,
+        "order" : 1,
+        "title" : "Verse"
+      }, {
+        "id" : 3,
+        "length" : 8,
+        "order" : 2,
+        "title" : "Prechorus"
+      }, {
+        "id" : 4,
+        "length" : 8,
+        "order" : 3,
+        "title" : "Chorus"
+      }, {
+        "id" : 5,
+        "length" : 16,
+        "order" : 4,
+        "title" : "Verse"
+      },
+      {
+        "id": 6,
+        "length": 8,
+        "order": 5,
+        "title": "Prechorus"
+      },
+      {
+        "id": 7,
+        "length": 16,
+        "order": 6,
+        "title": "Chorus"
+      }
+    ]
+    },
+  "phant2402tgkj": {
+    "id": 2,
+    "artist": "Phantogram",
+    "title": "Howling at the Moon",
+    "sections": [
+        {
+          "id": 1,
+          "order": 0,
+          "title": "Intro",
+          "length": 4
+        },
+        {
+          "id": 2,
+          "order": 1,
+          "title": "Verse",
+          "length": 8
+        },
+        {
+          "id": 3,
+          "order": 2,
+          "title": "Intro",
+          "length": 4
+        },
+        {
+          "id": 4,
+          "order": 3,
+          "title": "Verse",
+          "length": 8
+        },
+        {
+          "id": 5,
+          "order": 4,
+          "title": "Chorus",
+          "length": 8
+        },
+        {
+          "id": 6,
+          "order": 5,
+          "title": "Break",
+          "length": 2
+        },
+        {
+          "id": 7,
+          "order": 6,
+          "title": "Verse",
+          "length": 8
+        },
+        {
+          "id": 8,
+          "order": 7,
+          "title": "Break",
+          "length": 2
+        },
+        {
+          "id": 9,
+          "order": 8,
+          "title": "Bridge",
+          "length": 16
+        },
+        {
+          "id": 10,
+          "order": 9,
+          "title": "Chorus",
+          "length": 16
+        },
+        {
+          "id": 10,
+          "order": 9,
+          "title": "Break",
+          "length": 2
+        },
+        {
+          "id": 10,
+          "order": 10,
+          "title": "Intro",
+          "length": 4
+        }
+      ]
+    }
+  }   
+}
+  

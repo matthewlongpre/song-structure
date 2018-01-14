@@ -6,9 +6,13 @@
     </div>
 
     <div class="structure d-flex">
-        <div *ngFor="let section of song.sections" class="bars bars-{{section.length}} pt-3 pb-3 pl-1 pr-1" [ngStyle]="{'width': section.length / getTotal() * 100 + '%'}">
-            <div class="text-ellipsis">{{section.title}}</div>
-            <div>{{section.length}}</div>
+        <div *ngFor="let section of song.sections" [ngClass]="getSectionName(section.title)" class="bars bars-{{section.bars}} pt-3 pb-3 pl-1 pr-1" [ngStyle]="{'width': section.bars / getTotal() * 100 + '%'}">
+            <div class="text-ellipsis">
+                {{section.title}}
+            </div>
+            <div>
+                {{section.bars}}
+            </div>
         </div>
     </div>
 
@@ -17,31 +21,8 @@
     </div>
 
     
-    <div class="mt-3 mb-3">
-        <input class="form-control" [(ngModel)]="song.artist" placeholder="artist" />
-    </div>
+        <song-form [songDetail]="song" (formChanges)="formChanges($event)"></song-form>
 
-    <div class="mt-3 mb-3">
-        <input class="form-control" [(ngModel)]="song.title" placeholder="name" />
-    </div>
-
-    <div class="row">
-        <div class="col-4">
-            <h6>Section title:</h6>
-        </div>
-        <div class="col-4">
-            <h6>Bar length:</h6>
-        </div>
-    </div>
-    <div class="row" *ngFor="let section of song.sections">
-        <div class="col-4">
-            <input class="form-control" [(ngModel)]="section.title" placeholder="title" />
-        </div>
-        <div class="col-4 bar-length-input">
-            <input class="form-control" [(ngModel)]="section.length" placeholder="length" type="number" />
-        </div>
-    </div>
-
-    <button class="mt-3 btn btn-primary" (click)="goBack()">Back</button>
+    <button class="mt-3 btn" (click)="goBack()">Back</button>
 
 </div>
