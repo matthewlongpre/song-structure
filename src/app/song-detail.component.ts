@@ -15,6 +15,7 @@ import { SongService } from './song.service';
 
 export class SongDetailComponent implements OnInit {
     sub: any;
+    position: number[] = [];
     constructor(
         private songService: SongService,
         private route: ActivatedRoute,
@@ -32,18 +33,38 @@ export class SongDetailComponent implements OnInit {
             console.log('getting song with id: ', id);
             this.songService
                 .get(id)
-                .subscribe(song => this.song = song);
+                .subscribe(song => {
+                    this.song = song
+                    this.setPosition();
+                });
         });
+        
     }
 
     getTotal(): number {
-        let total = 0;
-        for (var i = 0; i < this.song.sections.length; i++) {
-            var section = this.song.sections[i];
+        let total: number = 0;
+        for (let i: number = 0; i < this.song.sections.length; i++) {
+            let section = this.song.sections[i];
             total += section.bars;
         }
         return total;
-    }    
+    }
+
+    setPosition(): number[] {
+        let currentPosition: number = 0;
+        for (let i: number = 0; i < this.song.sections.length; i++) {
+            let section = this.song.sections[i];
+            currentPosition += section.bars;
+            this.position.push(currentPosition - section.bars);
+        }
+        return this.position;
+    }
+
+    getPosition(index: number): number {
+        let position = this.position[index];
+        console.log(position)    
+        return position;
+    }
 
     goBack(): void {
         this.location.back();
