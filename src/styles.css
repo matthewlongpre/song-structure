@@ -64,3 +64,14 @@ body {
   max-height: 280px;
   overflow-y: auto;
 }
+
+.bars {
+  position: relative;
+}
+
+.section-position {
+  position: absolute;
+  top: 0;
+  font-size: 0.3em;
+  opacity: 0.6;
+}
