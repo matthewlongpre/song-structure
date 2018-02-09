@@ -26,9 +26,7 @@ export class SongDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.route.paramMap
-        // .switchMap((params: ParamMap) => this.songService.getSong(+params.get('id')))
         this.sub = this.route.params.subscribe(params => {
-            // let id = Number.parseInt(params['id']);
             let id = params['id'];
             console.log('getting song with id: ', id);
             this.songService
@@ -62,7 +60,6 @@ export class SongDetailComponent implements OnInit {
 
     getPosition(index: number): number {
         let position = this.position[index];
-        console.log(position)    
         return position;
     }
 
