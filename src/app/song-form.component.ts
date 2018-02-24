@@ -3,6 +3,7 @@ import { SongModel } from './song-model';
 import { SongService } from './song.service';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'song-form',
@@ -13,7 +14,8 @@ export class SongFormComponent {
     addForm: FormGroup;
     constructor(
         private songService: SongService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private router: Router
     ){}
 
     submitted = false;
@@ -94,7 +96,7 @@ export class SongFormComponent {
         };
         this.songService.createSong(song).subscribe(
             data => {
-                // TO DO: refresh the list
+                this.router.navigateByUrl("/songs");
                 return true;
             },
             error => {
@@ -112,6 +114,7 @@ export class SongFormComponent {
         };
         this.songService.updateSong(song).subscribe(
             song => {
+                this.router.navigateByUrl("/songs");                
                 return true;
             },
             error => {
@@ -122,9 +125,9 @@ export class SongFormComponent {
     }
 
     deleteSong(): void {
-        console.log('deleteSong');
         this.songService.deleteSong().subscribe(
             song => {
+                this.router.navigateByUrl("/songs");                
                 return true;
             },
             error => {
@@ -133,7 +136,4 @@ export class SongFormComponent {
             }
         );
     }
-
-    // TODO: Remove this when we're done
-    // get diagnostic() { return JSON.stringify(this.model); }
 }

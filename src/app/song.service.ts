@@ -1,6 +1,6 @@
 import { Injectable }  from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -43,7 +43,8 @@ export class SongService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let body = JSON.stringify(song);
-        return this.http.post(`${this.baseUrl}/songs.json`, body, options).map((res: Response) => res.json());
+        let url = `${this.baseUrl}/songs.json`;
+        return this.http.post(url, body, options).map((res: Response) => res.json());
     }
 
     updateSong(song) {
@@ -51,22 +52,25 @@ export class SongService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let body = JSON.stringify(song);
-        return this.http.put(`${this.baseUrl}/songs/${song.id}.json`, body, options).map((res: Response) => res.json());
+        let url = `${this.baseUrl}/songs/${song.id}.json`;
+        return this.http.put(url, body, options).map((res: Response) => res.json());
     }
 
     deleteSong() {
-        console.log(`${this.baseUrl}/songs/${this.currentSong}.json`)
-        return this.http.delete(`${this.baseUrl}/songs/${this.currentSong}.json`);
+        let headers = new Headers({ 'Content-Type': 'application/json' });     
+        let options = new RequestOptions({ 
+            headers: headers
+        }); 
+        let url = `${this.baseUrl}/songs/${this.currentSong}.json`;
+        return this.http.delete(url, options).catch(this.handleError);
     }
 
-    // getSongs():  Promise<Song[]> {
-    //     return Promise.resolve(SONGS);
-    // }
-    // getSong(id: number): Promise<Song> {
-    //     return this.getSongs()
-    //             .then(songs => songs.find(song => song.id === id))
-    // }
-
+    private handleError(error: any) {
+        let errMsg = (error.message) ? error.message :
+            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+        console.error(errMsg);
+        return Observable.throw(errMsg);
+    }
 }
 
 function mapSongs(response: Response): Song[] {
@@ -85,7 +89,6 @@ function toSong(r: any): Song {
         artist: r.artist,
         sections: r.sections
     });
-    console.log('Parsed song:', song);
     return song;
 }
 
