@@ -29,10 +29,22 @@ export class SongFormComponent {
     }
 
     @Input() songDetail: any;
+    @Input() hideMetaEdit: boolean;
+    @Input() hideSectionEdit: boolean;
+    @Input() actionMenu: boolean;
+    
+    private editSongMeta: boolean = true;
+    private editSections: boolean = true;
 
     @Output() formChanges = new EventEmitter();
 
     ngOnInit(){
+
+        if (this.actionMenu) {
+            this.editSongMeta = false;
+            this.editSections = false;
+        }
+
         if (this.songDetail) {
             this.addForm = this.formBuilder.group({
                 title:[this.songDetail.title, [Validators.required]],
@@ -121,6 +133,12 @@ export class SongFormComponent {
                 return Observable.throw(error);
             }
         );
+    }
+
+    handleDelete(): void {
+        if (confirm("Delete this song?")) {
+            this.deleteSong();
+        }
     }
 
     deleteSong(): void {
