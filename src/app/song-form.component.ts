@@ -54,7 +54,6 @@ export class SongFormComponent {
 
     onChanges(): void {
         this.addForm.valueChanges.subscribe(val => {
-            console.log(val)
             this.formChanges.emit(val);
             return val;
         });

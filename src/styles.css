@@ -58,11 +58,10 @@ body {
   background-color: #b2ebf2;
 }
 
-
-
 .form-panel {
   max-height: 280px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .bars {

@@ -1,28 +1,31 @@
 
 <form #heroForm="ngForm" [formGroup]="addForm" novalidate (ngSubmit)="onSubmit(addForm)">
     <div class="form-panel">
-    <div class="form-group">
-        <label for="name">Song Title</label>
-        <input type="text" class="form-control" id="title" required [formControl]="addForm.controls['title']" name="title"> 
-    </div>
-    <div class="form-group">
-        <label for="artist">Artist</label>
-        <input type="text" class="form-control" id="artist" required [formControl]="addForm.controls['artist']" name="artist">
-    </div>
-    <div formArrayName="sections">
-        <div *ngFor="let address of addForm.controls.sections.controls; let i=index">
-            <div class="d-flex justify-content-between">
-                <span>Section {{i + 1}}</span>
-                <span *ngIf="addForm.controls.sections.controls.length > 1"><a (click)="removeSection(i)"><i class="far fa-trash-alt"></i></a></span>
-            </div>
-            <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
-            <div [formGroupName]="i" class="row">
-                <div class="col-6"><input class="form-control mb-3" type="text" placeholder="Section Title" formControlName="title"></div>
-                <div class="col-6"><input class="form-control mb-3" type="number" placeholder="Bars" formControlName="bars"></div>
+        <div class="form-group">
+            <label for="name">Song Title</label>
+            <input type="text" class="form-control" id="title" required [formControl]="addForm.controls['title']" name="title"> 
+        </div>
+        <div class="form-group">
+            <label for="artist">Artist</label>
+            <input type="text" class="form-control" id="artist" required [formControl]="addForm.controls['artist']" name="artist">
+        </div>
+        <div formArrayName="sections">
+            <div *ngFor="let address of addForm.controls.sections.controls; let i=index">
+                <div class="d-flex justify-content-between">
+                    <span>Section {{i + 1}}</span>
+                    <span *ngIf="addForm.controls.sections.controls.length > 1"><a (click)="removeSection(i)"><i class="far fa-trash-alt"></i></a></span>
+                </div>
+                <div [formGroupName]="i" class="row">
+                    <div class="col-6"><input class="form-control mb-3" type="text" placeholder="Section Title" formControlName="title"></div>
+                    <div class="col-6"><input class="form-control mb-3" type="number" placeholder="Bars" formControlName="bars"></div>
+                </div>
             </div>
         </div>
-        <div class="mb-3"><button class="btn btn-primary" (click)="addSection()"><i class="fas fa-plus-circle"></i> Add Section</button></div>
     </div>
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary" (click)="addSection()">
+            <i class="fas fa-plus-circle"></i> Add Section</button>
     </div>
+    
     <button type="submit" [disabled]="!addForm.valid" class="btn btn-success">Save</button>
 </form>
