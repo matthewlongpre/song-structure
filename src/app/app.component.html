@@ -1,24 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">{{ title }}</a>
-    <button class="navbar-toggler hidden-sm-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-controls="exCollapsingNavbar2"
-        aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-    <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a routerLink="/dashboard" class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a routerLink="/songs" class="nav-link" href="#">Songs</a>
-            </li>
-            <li class="nav-item">
-                <a routerLink="/create" class="nav-link" href="#">Create</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<div class="d-flex justify-content-between mb-3">
+    <a *ngIf="router.url !== '/songs'" routerLink="/songs" class="btn btn-secondary" href="#">Songs</a>
+    <a *ngIf="router.url !== '/create'" routerLink="/create" class="btn btn-success" href="#">Create</a>
+</div>
 
 <router-outlet></router-outlet>
-
