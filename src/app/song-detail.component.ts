@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgStyle } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
@@ -18,6 +18,7 @@ export class SongDetailComponent implements OnInit {
     position: number[] = [];
     constructor(
         private songService: SongService,
+        private router: Router,
         private route: ActivatedRoute,
         private location: Location
     ) {}
@@ -28,7 +29,6 @@ export class SongDetailComponent implements OnInit {
         this.route.paramMap
         this.sub = this.route.params.subscribe(params => {
             let id = params['id'];
-            console.log('getting song with id: ', id);
             this.songService
                 .get(id)
                 .subscribe(song => {
@@ -77,4 +77,16 @@ export class SongDetailComponent implements OnInit {
         this.song = data;
     }
 
+    deleteSong(): void {
+        this.songService.deleteSong().subscribe(
+            song => {
+                this.router.navigateByUrl("/songs");
+                return true;
+            },
+            error => {
+                console.error("Error deleting song!");
+                return Observable.throw(error);
+            }
+        );
+    }
 }

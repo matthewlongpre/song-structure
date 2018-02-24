@@ -11,9 +11,9 @@
     </div>
     <div formArrayName="sections">
         <div *ngFor="let address of addForm.controls.sections.controls; let i=index">
-            <div>
+            <div class="d-flex justify-content-between">
                 <span>Section {{i + 1}}</span>
-                <span *ngIf="addForm.controls.sections.controls.length > 1"><a (click)="removeSection(i)">REMOVE</a></span>
+                <span *ngIf="addForm.controls.sections.controls.length > 1"><a (click)="removeSection(i)"><i class="far fa-trash-alt"></i></a></span>
             </div>
             <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
             <div [formGroupName]="i" class="row">
@@ -21,9 +21,8 @@
                 <div class="col-6"><input class="form-control mb-3" type="number" placeholder="Bars" formControlName="bars"></div>
             </div>
         </div>
-        <div class="mb-3"><a (click)="addSection()">add</a></div>
+        <div class="mb-3"><button class="btn btn-primary" (click)="addSection()"><i class="fas fa-plus-circle"></i> Add Section</button></div>
     </div>
     </div>
-    <button type="submit" [disabled]="!addForm.valid" class="btn btn-success">Submit</button>
-    <button class="btn btn-secondary" (click)="deleteSong()">Delete</button>
+    <button type="submit" [disabled]="!addForm.valid" class="btn btn-success">Save</button>
 </form>
