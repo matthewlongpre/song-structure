@@ -10,7 +10,7 @@
                 <input type="text" class="form-control" id="artist" required [formControl]="addForm.controls['artist']" name="artist">
             </div>
         </div>
-        <div *ngIf="editSections" formArrayName="sections">
+        <div *ngIf="editSections" #scrollSections formArrayName="sections" class="sections">
             <div *ngFor="let address of addForm.controls.sections.controls; let i=index">
                 <div class="d-flex justify-content-between">
                     <span class="text-muted">Section {{i + 1}}</span>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="mb-3">
-        <button type="button" class="btn btn-primary" (click)="addSection(); editSections = true">
+        <button type="button" class="btn btn-primary" (click)="addSection(); editSections = true;">
             <i class="fas fa-plus-circle"></i> Add Section
         </button>
         <div *ngIf="actionMenu" ngbDropdown class="d-inline-block">

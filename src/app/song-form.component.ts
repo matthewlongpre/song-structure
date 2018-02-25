@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterViewChecked } from '@angular/core';
 import { SongModel } from './song-model';
 import { SongService } from './song.service';
 import { Observable } from 'rxjs/Observable';
@@ -64,6 +64,12 @@ export class SongFormComponent {
         this.onChanges();
     }
 
+    ngAfterViewChecked() {
+        if (this.editSections) {
+            this.scrollSections();
+        }
+    }
+
     onChanges(): void {
         this.addForm.valueChanges.subscribe(val => {
             this.formChanges.emit(val);
@@ -71,7 +77,7 @@ export class SongFormComponent {
         });
     }
 
-    setSections(){
+    setSections(): void {
         let control = <FormArray>this.addForm.controls.sections;
         this.songDetail.sections.forEach(x => {
             control.push(this.formBuilder.group({title: x.title, bars: x.bars}))
@@ -82,16 +88,21 @@ export class SongFormComponent {
         })
     }
 
-    initSection(){
+    initSection() {
         return this.formBuilder.group({
             title: ['',Validators.required],
             bars: ['',Validators.required]
         })
     }
 
-    addSection() {
+    addSection(): void {
         const control = <FormArray>this.addForm.controls['sections'];
         control.push(this.initSection());
+    }
+
+    scrollSections(): void {
+        let sectionContainer = document.querySelector(".sections");
+        sectionContainer.scrollIntoView(false);
     }
     
     removeSection(i: number) {
