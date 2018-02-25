@@ -26,6 +26,10 @@ export class SongDetailComponent implements OnInit {
     @Input() song: Song;
 
     ngOnInit(): void {
+        this.loadSong();
+    }
+
+    loadSong(): void {
         this.route.paramMap
         this.sub = this.route.params.subscribe(params => {
             let id = params['id'];
@@ -36,7 +40,6 @@ export class SongDetailComponent implements OnInit {
                     this.setPosition();
                 });
         });
-        
     }
 
     getTotal(): number {
