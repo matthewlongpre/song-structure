@@ -18,7 +18,7 @@ export class SongService {
 
     getSongs(): Promise<Song[]> {
         let song$ = this.http
-            .get(`${this.baseUrl}/songs.json`, { headers: this.getHeaders() })
+            .get(`${this.baseUrl}/songs.json?`, { headers: this.getHeaders() })
             .toPromise()
             .then(mapSongs)
             .catch(handleError);
