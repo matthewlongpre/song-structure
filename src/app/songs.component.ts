@@ -27,7 +27,20 @@ export class SongsComponent implements OnInit {
 
   getSongs(): void {
     this.songService.getSongs()
-    .then(songs => this.songs = songs);
+    .then(songs => this.songs = songs)
+    .then(songs => this.sortSongs());
+  }
+
+  sortSongs(): void {
+    this.songs.sort(function (name1, name2) {
+      if (name1.artist < name2.artist) {
+        return -1;
+      } else if (name1.artist > name2.artist) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
   }
 
   gotoDetail(): void {
