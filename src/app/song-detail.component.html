@@ -23,6 +23,14 @@
         <h5>Total: {{ getTotal() }} bars</h5>
     </div>
 
+
+    <div class="structure d-flex mb-3">
+        <div *ngFor="let section of spotifySections; let i = index" class="bars pt-3 pb-3 pl-1 pr-1"
+            [ngStyle]="">
+        </div>
+    </div>
+
+
     <song-form [songDetail]="song" [actionMenu]="true" (formChanges)="formChanges($event)"></song-form>
 
 </div>

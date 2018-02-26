@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Song } from './song';
 import { SongService } from './song.service';
+import { SpotifyService } from './spotify.service';
 
 @Component({
     selector: 'song-detail',
@@ -16,8 +17,10 @@ import { SongService } from './song.service';
 export class SongDetailComponent implements OnInit {
     sub: any;
     position: number[] = [];
+    private spotifySections: any[] = [];
     constructor(
         private songService: SongService,
+        private spotifyService: SpotifyService,
         private router: Router,
         private route: ActivatedRoute,
         private location: Location
@@ -27,6 +30,16 @@ export class SongDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadSong();
+        this.getAnalysis("6K4t31amVTZDgR3sKmwUJJ");
+    }
+
+    getAnalysis(trackID: string): void {
+        this.spotifyService
+        .getAnalysis(trackID)
+        .subscribe(analysis => {
+            console.log(analysis.sections)
+            this.spotifySections = analysis.sections;
+        })
     }
 
     loadSong(): void {
