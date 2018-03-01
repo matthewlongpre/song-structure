@@ -17,7 +17,11 @@ import { SpotifyService } from './spotify.service';
 export class SongDetailComponent implements OnInit {
     sub: any;
     position: number[] = [];
-    private spotifySections: any[] = [];
+    private spotifyAnalysis: any[] = [];
+    private spotifyAudioFeatures: any[] = [];
+
+    private trackID: string = "63yesoRJgXT5QALryYFV0X";
+    
     constructor(
         private songService: SongService,
         private spotifyService: SpotifyService,
@@ -30,16 +34,26 @@ export class SongDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadSong();
-        this.getAnalysis("6K4t31amVTZDgR3sKmwUJJ");
+        this.getAnalysis(this.trackID);
+        this.getAudioFeatures(this.trackID);        
     }
 
     getAnalysis(trackID: string): void {
         this.spotifyService
         .getAnalysis(trackID)
-        .subscribe(analysis => {
-            console.log(analysis.sections)
-            this.spotifySections = analysis.sections;
+        .subscribe(data => {
+            console.log(data)
+            this.spotifyAnalysis = data;
         })
+    }
+
+    getAudioFeatures(trackID: string): void {
+        this.spotifyService
+            .getAudioFeatures(trackID)
+            .subscribe(data => {
+                console.log(data)
+                this.spotifyAudioFeatures = data;
+            })
     }
 
     loadSong(): void {

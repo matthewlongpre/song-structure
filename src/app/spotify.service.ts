@@ -13,7 +13,7 @@ export class SpotifyService {
     ){}
 
     private baseUrl: string = "https://api.spotify.com/v1/";
-    private authToken: string = "BQCsc8RLdcnAjOZepK9ydVJJ3ifb6IByqV46ODIJqO0JxQM94BSpZohXCZfUIVDpTHndYnIR2o8e7RgqzQVTSuFXyCa7kiiRKmHxiGNVjPgXJME1M3jWy5PNlvB_eqrikxm5Gk3MF3OuTem-ADGmVGqslWWj1PeOsuXZe2c";
+    private authToken: string = "BQD4fkUbHjEE6tIljOLYxpZ4DZurL289Bl1tmw2m-5NFcqf81EJS6l2jljLdtA_WPaxDP__14_7vorjTGu7nRMWV7egsiEH4vA7ucJKSetkHVb5Iecah5Ge5lbxouwMktmQTALpncmcVlaniU9AVjq81lNKhhplWIhbP6eg";
     private clientID: string = "88d8c5ca2a17477ab787f2d559f53e57";
     private clientSecret: string = "2cff6bfe538443dfa27b74dca691d302";
 
@@ -27,4 +27,13 @@ export class SpotifyService {
             });
     }
 
+    getAudioFeatures(trackID) {
+        let headers = new Headers();
+        headers.append("authorization", "Bearer " + this.authToken);
+        let url = `${this.baseUrl}audio-features/${trackID}`;
+        return this.http.get(url, { headers })
+            .map(res => {
+                return res.json();
+            });
+    }
 }
