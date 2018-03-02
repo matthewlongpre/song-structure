@@ -33,8 +33,8 @@ export class SongFormComponent {
     @Input() hideSectionEdit: boolean;
     @Input() actionMenu: boolean;
     
-    private editSongMeta: boolean = true;
-    private editSections: boolean = true;
+    public editSongMeta: boolean = true;
+    public editSections: boolean = true;
 
     @Output() formChanges = new EventEmitter();
 
