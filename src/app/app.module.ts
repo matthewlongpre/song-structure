@@ -18,6 +18,7 @@ import { SongFormComponent } from './song-form.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SpotifyService } from './spotify.service';
+import { AuthService } from './auth/auth.service';
 
 
 
@@ -39,7 +40,8 @@ import { SpotifyService } from './spotify.service';
   ],
   providers: [
     SongService,
-    SpotifyService
+    SpotifyService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { Buffer } from 'buffer';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -12,10 +13,21 @@ export class SpotifyService {
         private http: Http
     ){}
 
+    private authToken: string = "";
     private baseUrl: string = "https://api.spotify.com/v1/";
-    private authToken: string = "BQD4fkUbHjEE6tIljOLYxpZ4DZurL289Bl1tmw2m-5NFcqf81EJS6l2jljLdtA_WPaxDP__14_7vorjTGu7nRMWV7egsiEH4vA7ucJKSetkHVb5Iecah5Ge5lbxouwMktmQTALpncmcVlaniU9AVjq81lNKhhplWIhbP6eg";
     private clientID: string = "88d8c5ca2a17477ab787f2d559f53e57";
     private clientSecret: string = "2cff6bfe538443dfa27b74dca691d302";
+
+    private authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        headers: {
+            'Authorization': 'Basic ' + (new Buffer(this.clientID + ':' + this.clientSecret).toString('base64'))
+        },
+        form: {
+            grant_type: 'client_credentials'
+        },
+        json: true
+    };
 
     getAnalysis(trackID) {
         let headers = new Headers();
