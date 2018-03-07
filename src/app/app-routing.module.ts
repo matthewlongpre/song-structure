@@ -11,7 +11,8 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'detail/:id', component: SongDetailComponent, canActivate: [AuthGuard] },
     { path: 'songs', component: SongsComponent },
-    { path: 'create', component: SongFormComponent}
+    { path: 'create', component: SongFormComponent},
+    { path: 'callback', component: SongsComponent}
 ];
 
 @NgModule({
