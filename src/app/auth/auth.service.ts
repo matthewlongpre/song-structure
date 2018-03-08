@@ -9,17 +9,26 @@ import { Subscription } from 'rxjs/Rx';
 @Injectable()
 export class AuthService {
 
-  // get the Spotify code to retrieve the auth token
-  private subscription: Subscription;
-  code: string;
+  public stateKey = 'spotify_auth_state';
+
+  public params: any = this._getHashParams();
+  public access_token = this._checkAccessToken();
+  public state = this.params.state;
+  public storedState = localStorage.getItem(this.stateKey);
 
   constructor(
-    private router: Router, private http: Http,
-    private route: ActivatedRoute) {
-    this.subscription = route.queryParams.subscribe(
-      (queryParam: any) => this.code = queryParam['code']
-    );
-   }
+    private router: Router,
+    private http: Http){}
+
+  private _getHashParams() {
+    let hashParams = {};
+    let e, r = /([^&;=]+)=?([^&;]*)/g,
+      q = window.location.hash.substring(1);
+    while (e = r.exec(q)) {
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+    }
+    return hashParams;
+  }    
 
   private _generateRandomString(length: number): string {
     let text = '';
@@ -30,57 +39,34 @@ export class AuthService {
     return text;
   }
 
-  public _login(): void {
-    // your application requests authorization
-    const state = this._generateRandomString(16);
-    const stateKey = 'spotify_auth_state';
-    const scope = 'user-read-private user-read-email';
-    const baseURL = 'https://accounts.spotify.com/authorize?';
-
-    const options = {
-      response_type: 'code',
-      client_id: AUTH_CONFIG.clientID,
-      scope: scope,
-      redirect_uri: AUTH_CONFIG.redirect,
-      state: state
-    };
-
-    const params = new URLSearchParams();
-    for (const key of Object.keys(options)) {
-      params.set(key, options[key]);
+  public _checkAccessToken(){
+    if (this.params.access_token) {
+      localStorage.setItem('access_token', this.params.access_token);
+      return this.params.access_token;
+    } else {
+      if (localStorage.getItem('access_token')) {
+        return localStorage.getItem('access_token');
+      } else {
+        return null;
+      }
     }
-
-    window.location.href = `${baseURL}${params.toString()}`;
-
   }
 
-  public _requestToken() {
-    console.log('requestToken');
+  public _login(){
 
-    const authOptions = {
-      url: 'https://accounts.spotify.com/api/token',
-      form: {
-        code: this.code,
-        redirect_uri: AUTH_CONFIG.redirect,
-        grant_type: 'authorization_code'
-      },
-      headers: {
-        'Authorization': 'Basic ' + (new Buffer(AUTH_CONFIG.clientID + ':' + AUTH_CONFIG.clientSecret).toString('base64'))
-      },
-      json: true
-    };
-    console.log(authOptions);
+    const state = this._generateRandomString(16);
 
-    const headers = new Headers({ 'Authorization': 'Basic ' +
-    (new Buffer(AUTH_CONFIG.clientID + ':' + AUTH_CONFIG.clientSecret).toString('base64')) });
+    localStorage.setItem(this.stateKey, state);
+    const scope = AUTH_CONFIG.scope;
 
-    const options = new RequestOptions({ headers: headers });
-    const body = authOptions.form;
-    const url = `https://accounts.spotify.com/api/token`;
-    this.http.post(url, body, options).map((res: Response) => {
-      console.log(res.json());
-      res.json();
-    });
+    let url = AUTH_CONFIG.authURL;
+    url += '?response_type=token';
+    url += '&client_id=' + encodeURIComponent(AUTH_CONFIG.clientID);
+    url += '&scope=' + encodeURIComponent(scope);
+    url += '&redirect_uri=' + encodeURIComponent(AUTH_CONFIG.redirect);
+    url += '&state=' + encodeURIComponent(state);
+
+    window.location.href = url;
   }
 
 }

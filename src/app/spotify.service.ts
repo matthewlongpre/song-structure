@@ -5,16 +5,16 @@ import { Buffer } from 'buffer';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+import { AuthService } from './auth/auth.service';
+
 @Injectable()
 
 export class SpotifyService {
 
-    constructor (private http: Http) {}
+    constructor (private http: Http, private authService: AuthService) {}
 
-    private authToken = '';
+    private authToken = this.authService.access_token;
     private baseUrl = 'https://api.spotify.com/v1/';
-    private clientID = '88d8c5ca2a17477ab787f2d559f53e57';
-    private clientSecret = '2cff6bfe538443dfa27b74dca691d302';
 
     getAnalysis(trackID) {
         const headers = new Headers();

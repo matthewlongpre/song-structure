@@ -49,9 +49,12 @@ export class SongsComponent implements OnInit {
     this.router.navigate(['/detail', this.selectedSong.id]);
   }
 
+  login(): void {
+    this.authService._login();
+  }
+
   ngOnInit() {
     this.getSongs();
-    this.authService._requestToken();
   }
 
 }
