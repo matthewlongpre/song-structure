@@ -87,7 +87,8 @@ function toSong(r: any): Song {
         id: r.id,
         title: r.title,
         artist: r.artist,
-        sections: r.sections
+        sections: r.sections,
+        spotifyID: r.spotifyID
     });
     return song;
 }

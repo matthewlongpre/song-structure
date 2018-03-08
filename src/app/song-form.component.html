@@ -9,6 +9,10 @@
                 <label for="artist">Artist</label>
                 <input type="text" class="form-control" id="artist" required [formControl]="addForm.controls['artist']" name="artist">
             </div>
+            <div class="form-group">
+                <label for="spotifyID">Spotify Track ID</label>
+                <input type="text" class="form-control" id="spotifyID" [formControl]="addForm.controls['spotifyID']" name="spotifyID">
+            </div>
         </div>
         <div *ngIf="editSections" #scrollSections formArrayName="sections" class="sections">
             <div *ngFor="let address of addForm.controls.sections.controls; let i=index">

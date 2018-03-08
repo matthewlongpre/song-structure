@@ -1,5 +1,6 @@
 export class Song {
   id: number;
+  spotifyID?: string;
   artist: string;
   title: string;
   sections: Array<{

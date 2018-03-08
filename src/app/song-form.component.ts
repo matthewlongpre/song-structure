@@ -49,6 +49,7 @@ export class SongFormComponent {
             this.addForm = this.formBuilder.group({
                 title:[this.songDetail.title, [Validators.required]],
                 artist: [this.songDetail.artist, [Validators.required]],
+                spotifyID: [this.songDetail.spotifyID],
                 sections: this.formBuilder.array([])
             });
             this.setSections();
@@ -56,6 +57,7 @@ export class SongFormComponent {
             this.addForm = this.formBuilder.group({
                 title: ['', [Validators.required]],
                 artist: ['', [Validators.required]],
+                spotifyID: [''],
                 sections: this.formBuilder.array([
                     this.initSection(),
                 ])
@@ -114,6 +116,7 @@ export class SongFormComponent {
         let song = {
             title: data._value.title,
             artist: data._value.artist,
+            spotifyID: data.value.spotifyID,
             sections: data._value.sections
         };
         this.songService.createSong(song).subscribe(
@@ -132,6 +135,7 @@ export class SongFormComponent {
         let song = {
             title: data._value.title,
             artist: data._value.artist,
+            spotifyID: data.value.spotifyID,
             sections: data._value.sections
         };
         this.songService.updateSong(song).subscribe(
