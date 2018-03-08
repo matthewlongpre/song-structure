@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router }  from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Song } from './song';
 import { SongService } from './song.service';
+import { AuthService } from './auth/auth.service';
 
 @Component({
-  selector: 'my-songs',
+  selector: 'app-my-songs',
   templateUrl: './songs.component.html',
   styleUrls: ['./songs.component.css']
 })
@@ -17,7 +18,8 @@ export class SongsComponent implements OnInit {
 
   constructor(
     private songService: SongService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   onSelect(song: Song): void {
@@ -49,6 +51,7 @@ export class SongsComponent implements OnInit {
 
   ngOnInit() {
     this.getSongs();
+    this.authService._requestToken();
   }
 
 }

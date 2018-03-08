@@ -9,8 +9,8 @@ import { SongFormComponent } from './song-form.component';
 const routes: Routes = [
     { path: '', redirectTo: '/songs', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'detail/:id', component: SongDetailComponent, canActivate: [AuthGuard] },
-    { path: 'songs', component: SongsComponent },
+    { path: 'detail/:id', component: SongDetailComponent },
+    { path: 'songs', component: SongsComponent, canActivate: [AuthGuard] },
     { path: 'create', component: SongFormComponent},
     { path: 'callback', component: SongsComponent}
 ];
