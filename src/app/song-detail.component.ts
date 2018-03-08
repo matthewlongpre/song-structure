@@ -17,10 +17,11 @@ import { SpotifyService } from './spotify.service';
 export class SongDetailComponent implements OnInit {
     sub: any;
     position: number[] = [];
+    private spotifyTrack: any[] = [];    
     private spotifyAnalysis: any[] = [];
     private spotifyAudioFeatures: any[] = [];
 
-    private trackID: string = "63yesoRJgXT5QALryYFV0X";
+    // private trackID: string = this.song.spotifyID;
     
     constructor(
         private songService: SongService,
@@ -33,9 +34,16 @@ export class SongDetailComponent implements OnInit {
     @Input() song: Song;
 
     ngOnInit(): void {
-        this.loadSong();
-        this.getAnalysis(this.trackID);
-        this.getAudioFeatures(this.trackID);        
+        this.loadSong();     
+    }
+
+    getTrack(trackID: string): void {
+        this.spotifyService
+            .getTrack(trackID)
+            .subscribe(data => {
+                console.log(data)
+                this.spotifyTrack = data;
+            })
     }
 
     getAnalysis(trackID: string): void {
@@ -56,6 +64,12 @@ export class SongDetailComponent implements OnInit {
             })
     }
 
+    getDuration(ms: number): any {
+            const minutes: number = Math.floor(ms / 60000);
+            const seconds: any = ((ms % 60000) / 1000).toFixed(0);
+            return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    }
+
     loadSong(): void {
         this.route.paramMap
         this.sub = this.route.params.subscribe(params => {
@@ -65,6 +79,11 @@ export class SongDetailComponent implements OnInit {
                 .subscribe(song => {
                     this.song = song
                     this.setPosition();
+                    if (this.song.spotifyID) { 
+                        this.getTrack(this.song.spotifyID);
+                        this.getAnalysis(this.song.spotifyID);
+                        this.getAudioFeatures(this.song.spotifyID);
+                    }
                 });
         });
     }

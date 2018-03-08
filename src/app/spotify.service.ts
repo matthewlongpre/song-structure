@@ -16,6 +16,16 @@ export class SpotifyService {
     private authToken = this.authService.access_token;
     private baseUrl = 'https://api.spotify.com/v1/';
 
+    getTrack(trackID) {
+        const headers = new Headers();
+        headers.append('authorization', 'Bearer ' + this.authToken);
+        const url = `${this.baseUrl}tracks/${trackID}`;
+        return this.http.get(url, { headers })
+            .map(res => {
+                return res.json();
+            });
+    }
+
     getAnalysis(trackID) {
         const headers = new Headers();
         headers.append('authorization', 'Bearer ' + this.authToken);
