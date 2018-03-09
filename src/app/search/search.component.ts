@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SpotifyService } from '../spotify.service';
 
@@ -13,11 +13,17 @@ export class SearchComponent implements OnInit {
 
   constructor(private spotifyService: SpotifyService) { }
 
+  selectSong(track: any) {
+    this.trackID.emit(track);
+    this.inputField.setValue("");
+  }
+
+  @Output() trackID = new EventEmitter;
+
   ngOnInit() {
     this.inputField.valueChanges
     .subscribe(inputField => this.spotifyService.search(inputField, "track,artist")
     .subscribe(result => {
-
         this.results = result;
         console.log(this.results);
       }

@@ -1,4 +1,6 @@
 <form #heroForm="ngForm" [formGroup]="addForm" novalidate (ngSubmit)="onSubmit(addForm)">
+    <app-search *ngIf="!hideSearch" (trackID)="trackID($event)"></app-search>
+    
     <div class="form-panel">
         <div *ngIf="editSongMeta" class="song-meta">
             <div class="form-group">

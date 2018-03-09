@@ -4,6 +4,7 @@ import { SongService } from './song.service';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SearchComponent } from './search/search.component';
 
 @Component({
     selector: 'song-form',
@@ -32,6 +33,13 @@ export class SongFormComponent {
     @Input() hideMetaEdit: boolean;
     @Input() hideSectionEdit: boolean;
     @Input() actionMenu: boolean;
+    @Input() hideSearch: boolean;
+
+    trackID(track: any) {
+        this.addForm.controls['artist'].setValue(track.artists[0].name);
+        this.addForm.controls['title'].setValue(track.name);
+        this.addForm.controls['spotifyID'].setValue(track.id);
+    }
     
     public editSongMeta: boolean = true;
     public editSections: boolean = true;
@@ -39,7 +47,7 @@ export class SongFormComponent {
     @Output() formChanges = new EventEmitter();
 
     ngOnInit(){
-
+        console.log(this.hideSearch);
         if (this.actionMenu) {
             this.editSongMeta = false;
             this.editSections = false;
@@ -68,7 +76,7 @@ export class SongFormComponent {
 
     ngAfterViewChecked() {
         if (this.editSections) {
-            this.scrollSections();
+            // this.scrollSections();
         }
     }
 
@@ -100,6 +108,7 @@ export class SongFormComponent {
     addSection(): void {
         const control = <FormArray>this.addForm.controls['sections'];
         control.push(this.initSection());
+        this.scrollSections();
     }
 
     scrollSections(): void {

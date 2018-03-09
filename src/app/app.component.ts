@@ -20,4 +20,7 @@ export class AppComponent {
         console.log(this.authService.access_token);
         console.log(this.authService.storedState);
     }
+    login(): void {
+        this.authService._login();
+    }
 }

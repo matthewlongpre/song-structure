@@ -1,7 +1,7 @@
 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button class="btn btn-secondary" (click)="login()">Login</button>
         <button routerLink="/songs" [class.active]="router.url === '/songs'" type="button" class="btn btn-secondary">Songs</button>
-        <button routerLink="/search" [class.active]="router.url === '/search'" type="button" class="btn btn-secondary">Search</button>
         <button routerLink="/create" [class.active]="router.url === '/create'" type="button" class="btn btn-secondary">Create</button>
     </div>
 </div>

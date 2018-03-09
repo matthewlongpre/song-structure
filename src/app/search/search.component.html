@@ -1,7 +1,7 @@
 <input [formControl]="inputField" type="text" id="search" class="form-control" autofocus/>
 
 <div *ngIf="results.tracks" class="list-group">
-    <a *ngFor="let track of results.tracks.items" class="list-group-item list-group-item-action">
+    <a (click)="selectSong(track)" *ngFor="let track of results.tracks.items" class="list-group-item list-group-item-action">
         <div class="w-100 justify-content-between">
             <h5 class="mb-1">{{track.name}}</h5>
             <div>
