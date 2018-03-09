@@ -33,9 +33,12 @@
         <h5>Total: {{ getTotal() }} bars</h5>
     </div>
 
-    <div class="structure d-flex mb-3">
-        <div *ngFor="let section of spotifyAnalysis.sections; let i = index" class="bars pt-3 pb-3 pl-1 pr-1"
-            [ngStyle]="{'width': section.duration / spotifyAnalysis.track.duration * 100 + '%'}">
+    <div *ngIf="spotifyAnalysis.sections">
+        <h6>Spotify Suggested Sections</h6>    
+        <div class="structure d-flex mb-3">
+            <div *ngFor="let section of spotifyAnalysis.sections; let i = index" class="bars pt-3 pb-3 pl-1 pr-1"
+                [ngStyle]="{'width': section.duration / spotifyAnalysis.track.duration * 100 + '%'}">
+            </div>
         </div>
     </div>
 
