@@ -19,6 +19,7 @@ import { SongFormComponent } from './song-form.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SpotifyService } from './spotify.service';
 import { AuthService } from './auth/auth.service';
+import { SearchComponent } from './search/search.component';
 
 
 
@@ -28,7 +29,8 @@ import { AuthService } from './auth/auth.service';
     SongsComponent,
     SongDetailComponent,
     DashboardComponent,
-    SongFormComponent
+    SongFormComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

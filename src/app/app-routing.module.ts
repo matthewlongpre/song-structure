@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard.component';
 import { SongsComponent } from './songs.component';
 import { SongDetailComponent } from './song-detail.component';
 import { SongFormComponent } from './song-form.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/songs', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
     { path: 'detail/:id', component: SongDetailComponent },
     { path: 'songs', component: SongsComponent, canActivate: [AuthGuard] },
     { path: 'create', component: SongFormComponent},
-    { path: 'callback', component: SongsComponent}
+    { path: 'callback', component: SongsComponent},
+    { path: 'search', component: SearchComponent}
 ];
 
 @NgModule({

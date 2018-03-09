@@ -19,6 +19,27 @@ export class SpotifyService {
     private authToken = this.authService.access_token;
     private baseUrl = 'https://api.spotify.com/v1/';
 
+    search(q: string, type?: string): Observable<any> {
+        if (!q) {
+            q = " ";
+        }
+        const headers = new Headers();
+        headers.append('authorization', 'Bearer ' + this.authToken);
+        const url = `${this.baseUrl}search?q=${q}&type=${type}`;
+        return this.http
+            .get(url, { headers })
+            .map(res => {
+                console.log(res.json());
+                return res.json();
+            })
+            .catch(e => {
+                if (e.status === 401) {
+                    this.authService._login();
+                    return Observable.throw('Unauthorized');
+                }
+            });
+    }
+
     getTrack(trackID) {
         const headers = new Headers();
         headers.append('authorization', 'Bearer ' + this.authToken);
