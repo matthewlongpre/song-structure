@@ -1,8 +1,18 @@
 <div *ngIf="song">
 
-    <div class="mt-3 mb-3">
-        <h4>{{song.artist}}</h4>
-        <h2>{{song.title}}</h2>
+    <div class="d-flex">
+
+        <div class="mr-3 mb-3">
+            <img width="150" height="150" *ngIf="spotifyTrack.album" src="{{spotifyTrack.album.images[1].url}}" />
+        </div>
+        <div class="mt-3 mb-3">
+            <h4>{{song.artist}}</h4>
+            <h2>{{song.title}}</h2>
+            <h5 *ngIf="spotifyTrack.album">{{spotifyTrack.album.name}}</h5>
+            <div *ngIf="spotifyTrack.duration_ms">{{getDuration(spotifyTrack.duration_ms)}}</div>
+        </div>
+
+
     </div>
 
     <div class="structure d-flex">
@@ -23,6 +33,15 @@
         <h5>Total: {{ getTotal() }} bars</h5>
     </div>
 
-    <song-form [songDetail]="song" [actionMenu]="true" (formChanges)="formChanges($event)"></song-form>
+    <div *ngIf="spotifyAnalysis.sections">
+        <h6>Spotify Suggested Sections</h6>    
+        <div class="structure d-flex mb-3">
+            <div *ngFor="let section of spotifyAnalysis.sections; let i = index" class="bars pt-3 pb-3 pl-1 pr-1"
+                [ngStyle]="{'width': section.duration / spotifyAnalysis.track.duration * 100 + '%'}">
+            </div>
+        </div>
+    </div>
+
+    <song-form [songDetail]="song" [actionMenu]="true" [hideSearch]="true" (formChanges)="formChanges($event)"></song-form>
 
 </div>

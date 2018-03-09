@@ -1,0 +1,14 @@
+<input [formControl]="inputField" type="text" id="search" class="form-control mb-3" placeholder="Search Spotify..." autofocus/>
+
+<div *ngIf="results.tracks" class="list-group spotify-results">
+    <a (click)="selectSong(track)" *ngFor="let track of results.tracks.items" class="list-group-item list-group-item-action">
+        <div class="w-100 justify-content-between">
+            <h5 class="mb-1">{{track.name}}</h5>
+            <div>
+                <div class="text-muted text-small d-inline-block" *ngFor="let artist of track.artists; let i = index">
+                    <small><span *ngIf="i > 0">, </span>{{artist.name}}</small>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

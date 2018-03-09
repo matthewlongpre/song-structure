@@ -1,4 +1,4 @@
-import { Injectable }  from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -87,7 +87,8 @@ function toSong(r: any): Song {
         id: r.id,
         title: r.title,
         artist: r.artist,
-        sections: r.sections
+        sections: r.sections,
+        spotifyID: r.spotifyID
     });
     return song;
 }

@@ -17,6 +17,9 @@ import { SongService } from './song.service';
 import { SongFormComponent } from './song-form.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SpotifyService } from './spotify.service';
+import { AuthService } from './auth/auth.service';
+import { SearchComponent } from './search/search.component';
 
 
 
@@ -26,7 +29,8 @@ import { AppRoutingModule } from './app-routing.module';
     SongsComponent,
     SongDetailComponent,
     DashboardComponent,
-    SongFormComponent
+    SongFormComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,11 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     NgbModule.forRoot(),
   ],
-  providers: [SongService],
+  providers: [
+    SongService,
+    SpotifyService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 

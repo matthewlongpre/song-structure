@@ -1,6 +1,9 @@
-<div class="d-flex justify-content-between mb-3">
-    <a *ngIf="router.url !== '/songs'" routerLink="/songs" class="btn btn-secondary" href="#">Songs</a>
-    <a *ngIf="router.url !== '/create'" routerLink="/create" class="btn btn-success" href="#">Create</a>
+<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button class="btn btn-secondary" (click)="login()">Login</button>
+        <button routerLink="/songs" [class.active]="router.url === '/songs'" type="button" class="btn btn-secondary">Songs</button>
+        <button routerLink="/create" [class.active]="router.url === '/create'" type="button" class="btn btn-secondary">Create</button>
+    </div>
 </div>
 
 <router-outlet></router-outlet>

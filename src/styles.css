@@ -80,3 +80,7 @@ body {
   font-size: 10px;
   text-transform: uppercase;
 }
+
+.spotify-results a:hover {
+  cursor: pointer;
+}

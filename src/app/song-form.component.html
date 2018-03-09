@@ -1,4 +1,6 @@
 <form #heroForm="ngForm" [formGroup]="addForm" novalidate (ngSubmit)="onSubmit(addForm)">
+    <app-search *ngIf="!hideSearch" (trackID)="trackID($event)"></app-search>
+    
     <div class="form-panel">
         <div *ngIf="editSongMeta" class="song-meta">
             <div class="form-group">
@@ -8,6 +10,10 @@
             <div class="form-group">
                 <label for="artist">Artist</label>
                 <input type="text" class="form-control" id="artist" required [formControl]="addForm.controls['artist']" name="artist">
+            </div>
+            <div class="form-group">
+                <label for="spotifyID">Spotify Track ID</label>
+                <input type="text" class="form-control" id="spotifyID" [formControl]="addForm.controls['spotifyID']" name="spotifyID">
             </div>
         </div>
         <div *ngIf="editSections" #scrollSections formArrayName="sections" class="sections">

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Song } from './song';
 import { SongService } from './song.service';
+import { SpotifyService } from './spotify.service';
 
 @Component({
     selector: 'song-detail',
@@ -16,8 +17,15 @@ import { SongService } from './song.service';
 export class SongDetailComponent implements OnInit {
     sub: any;
     position: number[] = [];
+    private spotifyTrack: any[] = [];    
+    private spotifyAnalysis: any[] = [];
+    private spotifyAudioFeatures: any[] = [];
+
+    // private trackID: string = this.song.spotifyID;
+    
     constructor(
         private songService: SongService,
+        private spotifyService: SpotifyService,
         private router: Router,
         private route: ActivatedRoute,
         private location: Location
@@ -26,7 +34,40 @@ export class SongDetailComponent implements OnInit {
     @Input() song: Song;
 
     ngOnInit(): void {
-        this.loadSong();
+        this.loadSong();     
+    }
+
+    getTrack(trackID: string): void {
+        this.spotifyService
+            .getTrack(trackID)
+            .subscribe(data => {
+                console.log(data)
+                this.spotifyTrack = data;
+            })
+    }
+
+    getAnalysis(trackID: string): void {
+        this.spotifyService
+        .getAnalysis(trackID)
+        .subscribe(data => {
+            console.log(data)
+            this.spotifyAnalysis = data;
+        })
+    }
+
+    getAudioFeatures(trackID: string): void {
+        this.spotifyService
+            .getAudioFeatures(trackID)
+            .subscribe(data => {
+                console.log(data)
+                this.spotifyAudioFeatures = data;
+            })
+    }
+
+    getDuration(ms: number): any {
+            const minutes: number = Math.floor(ms / 60000);
+            const seconds: any = ((ms % 60000) / 1000).toFixed(0);
+            return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
 
     loadSong(): void {
@@ -38,6 +79,11 @@ export class SongDetailComponent implements OnInit {
                 .subscribe(song => {
                     this.song = song
                     this.setPosition();
+                    if (this.song.spotifyID) { 
+                        this.getTrack(this.song.spotifyID);
+                        this.getAnalysis(this.song.spotifyID);
+                        this.getAudioFeatures(this.song.spotifyID);
+                    }
                 });
         });
     }
