@@ -42,6 +42,36 @@
         </div>
     </div>
 
+    <div class="d-flex">
+        <div *ngIf="spotifyAudioFeatures.key" class="card mb-3">
+            <h5 class="card-header">Key</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{spotifyAudioFeatures.key}}</h5>
+            </div>
+        </div>
+
+        <div *ngIf="spotifyAudioFeatures.key" class="card mb-3">
+            <h5 class="card-header">Tempo</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{spotifyAudioFeatures.tempo}}</h5>
+            </div>
+        </div>
+
+        <div *ngIf="spotifyAudioFeatures.key" class="card mb-3">
+            <h5 class="card-header">Energy</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{spotifyAudioFeatures.energy}}</h5>
+            </div>
+        </div>
+
+        <div *ngIf="spotifyAudioFeatures.key" class="card mb-3">
+            <h5 class="card-header">Danceability</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{spotifyAudioFeatures.danceability}}</h5>
+            </div>
+        </div>
+    </div>
+
     <song-form [songDetail]="song" [actionMenu]="true" [hideSearch]="true" (formChanges)="formChanges($event)"></song-form>
 
 </div>
