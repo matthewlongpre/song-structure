@@ -81,6 +81,13 @@ body {
   text-transform: uppercase;
 }
 
+.spotify-results {
+  position: absolute;
+  max-height: 40vh;
+  overflow: auto;
+  box-shadow: 3px 4px 10px rgba(0,0,0,0.15);
+}
+
 .spotify-results a:hover {
   cursor: pointer;
 }
