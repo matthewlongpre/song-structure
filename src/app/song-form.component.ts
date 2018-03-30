@@ -87,7 +87,7 @@ export class SongFormComponent {
     }
 
     setSections(): void {
-        let control = <FormArray>this.addForm.controls.sections;
+        const control = <FormArray>this.addForm.controls.sections;
         this.songDetail.sections.forEach(x => {
             control.push(this.formBuilder.group({title: x.title, bars: x.bars}))
         })
@@ -111,7 +111,7 @@ export class SongFormComponent {
     }
 
     scrollSections(): void {
-        let sectionContainer = document.querySelector(".sections");
+        const sectionContainer = document.querySelector(".sections");
         sectionContainer.scrollIntoView(false);
     }
     
@@ -121,7 +121,7 @@ export class SongFormComponent {
     }
 
     createSong(data: any): void {
-        let song = {
+        const song = {
             title: data._value.title,
             artist: data._value.artist,
             spotifyID: data.value.spotifyID,
@@ -140,7 +140,7 @@ export class SongFormComponent {
     }
 
     updateSong(data: any): void {
-        let song = {
+        const song = {
             title: data._value.title,
             artist: data._value.artist,
             spotifyID: data.value.spotifyID,
