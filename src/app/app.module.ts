@@ -21,7 +21,7 @@ import { SpotifyService } from './spotify.service';
 import { AuthService } from './auth/auth.service';
 import { SearchComponent } from './search/search.component';
 
-
+import { SongKeyPipe } from './song-key.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { SearchComponent } from './search/search.component';
     SongDetailComponent,
     DashboardComponent,
     SongFormComponent,
-    SearchComponent
+    SearchComponent,
+    SongKeyPipe
   ],
   imports: [
     BrowserModule,

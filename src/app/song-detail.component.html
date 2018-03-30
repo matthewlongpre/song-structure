@@ -33,6 +33,10 @@
         <h5>Total: {{ getTotal() }} bars</h5>
     </div>
 
+    <div *ngIf="spotifyAudioFeatures.key">
+        {{ spotifyAudioFeatures.key | songKey:spotifyAudioFeatures.mode }}
+    </div>
+
     <song-form [songDetail]="song" [actionMenu]="true" [hideSearch]="true" (formChanges)="formChanges($event)"></song-form>
 
 </div>

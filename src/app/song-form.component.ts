@@ -47,7 +47,6 @@ export class SongFormComponent {
     @Output() formChanges = new EventEmitter();
 
     ngOnInit(){
-        console.log(this.hideSearch);
         if (this.actionMenu) {
             this.editSongMeta = false;
             this.editSections = false;
@@ -76,7 +75,7 @@ export class SongFormComponent {
 
     ngAfterViewChecked() {
         if (this.editSections) {
-            // this.scrollSections();
+            this.scrollSections();
         }
     }
 
@@ -108,7 +107,7 @@ export class SongFormComponent {
     addSection(): void {
         const control = <FormArray>this.addForm.controls['sections'];
         control.push(this.initSection());
-        this.scrollSections();
+        this.editSections = true;
     }
 
     scrollSections(): void {

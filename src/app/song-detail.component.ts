@@ -9,6 +9,8 @@ import { Song } from './song';
 import { SongService } from './song.service';
 import { SpotifyService } from './spotify.service';
 
+import { SongKeyPipe } from './song-key.pipe';
+
 @Component({
     selector: 'song-detail',
     templateUrl: './song-detail.component.html',
