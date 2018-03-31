@@ -65,6 +65,12 @@ export class SpotifyService {
             .get(url, { headers })
             .map(res => {
                 return res.json();
+            })
+            .catch(e => {
+                if (e.status === 401) {
+                    this.authService._login();
+                    return Observable.throw('Unauthorized');
+                }
             });
     }
 
@@ -76,6 +82,12 @@ export class SpotifyService {
             .get(url, { headers })
             .map(res => {
                 return res.json();
+            })
+            .catch(e => {
+                if (e.status === 401) {
+                    this.authService._login();
+                    return Observable.throw('Unauthorized');
+                }
             });
     }
 }

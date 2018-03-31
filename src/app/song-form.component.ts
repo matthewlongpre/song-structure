@@ -47,7 +47,6 @@ export class SongFormComponent {
     @Output() formChanges = new EventEmitter();
 
     ngOnInit(){
-        console.log(this.hideSearch);
         if (this.actionMenu) {
             this.editSongMeta = false;
             this.editSections = false;
@@ -76,7 +75,7 @@ export class SongFormComponent {
 
     ngAfterViewChecked() {
         if (this.editSections) {
-            // this.scrollSections();
+            this.scrollSections();
         }
     }
 
@@ -88,7 +87,7 @@ export class SongFormComponent {
     }
 
     setSections(): void {
-        let control = <FormArray>this.addForm.controls.sections;
+        const control = <FormArray>this.addForm.controls.sections;
         this.songDetail.sections.forEach(x => {
             control.push(this.formBuilder.group({title: x.title, bars: x.bars}))
         })
@@ -108,11 +107,11 @@ export class SongFormComponent {
     addSection(): void {
         const control = <FormArray>this.addForm.controls['sections'];
         control.push(this.initSection());
-        this.scrollSections();
+        this.editSections = true;
     }
 
     scrollSections(): void {
-        let sectionContainer = document.querySelector(".sections");
+        const sectionContainer = document.querySelector(".sections");
         sectionContainer.scrollIntoView(false);
     }
     
@@ -122,7 +121,7 @@ export class SongFormComponent {
     }
 
     createSong(data: any): void {
-        let song = {
+        const song = {
             title: data._value.title,
             artist: data._value.artist,
             spotifyID: data.value.spotifyID,
@@ -141,7 +140,7 @@ export class SongFormComponent {
     }
 
     updateSong(data: any): void {
-        let song = {
+        const song = {
             title: data._value.title,
             artist: data._value.artist,
             spotifyID: data.value.spotifyID,
