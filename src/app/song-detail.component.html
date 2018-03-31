@@ -33,7 +33,7 @@
         <h5>Total: {{ getTotal() }} bars</h5>
     </div>
 
-    <div *ngIf="spotifyAudioFeatures">
+    <div *ngIf="spotifyAudioFeatures" class="mb-3">
         {{ spotifyAudioFeatures.key | songKey:spotifyAudioFeatures.mode }}
         {{ spotifyAudioFeatures.tempo | songTempo }}
     </div>
