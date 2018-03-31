@@ -9,7 +9,9 @@ import { Song } from './song';
 import { SongService } from './song.service';
 import { SpotifyService } from './spotify.service';
 
-import { SongKeyPipe } from './song-key.pipe';
+import { SongKeyPipe } from './pipes/song-key.pipe';
+import { SongTempoPipe } from './pipes/song-tempo.pipe';
+
 
 @Component({
     selector: 'song-detail',
@@ -65,13 +67,7 @@ export class SongDetailComponent implements OnInit {
                 this.spotifyAudioFeatures = data;
             })
     }
-
-    getDuration(ms: number): any {
-            const minutes: number = Math.floor(ms / 60000);
-            const seconds: any = ((ms % 60000) / 1000).toFixed(0);
-            return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-    }
-
+    
     loadSong(): void {
         this.route.paramMap
         this.sub = this.route.params.subscribe(params => {
