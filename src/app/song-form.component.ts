@@ -75,7 +75,8 @@ export class SongFormComponent {
 
     ngAfterViewChecked() {
         if (this.editSections) {
-            this.scrollSections();
+            // TODO
+            // this.scrollSections();
         }
     }
 
