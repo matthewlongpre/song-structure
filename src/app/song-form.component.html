@@ -23,8 +23,36 @@
                     <span *ngIf="addForm.controls.sections.controls.length > 1"><a (click)="removeSection(i)"><i class="far fa-trash-alt"></i></a></span>
                 </div>
                 <div [formGroupName]="i" class="row">
-                    <div class="col-6 pr-2"><input class="form-control mb-3" type="text" placeholder="Section Title" formControlName="title"></div>
-                    <div class="col-6 pl-2"><input class="form-control mb-3" type="number" placeholder="Bars" formControlName="bars"></div>
+                    <div class="col-2 pr-2">
+                        <input class="form-control mb-3" type="text" placeholder="Section Title" formControlName="title">
+                    </div>
+                    <div class="col-2 pl-2 pr-2">
+                        <input class="form-control mb-3" type="number" placeholder="Bars" formControlName="bars">
+                    </div>
+                    <div class="col-2 pl-2 pr-2">
+                        <select class="form-control mb-3" type="text" placeholder="Space" formControlName="space">
+                            <option value="" selected="selected" disabled>Space</option>
+                            <option id="0" value="Dry">Dry</option>
+                            <option id="1" value="Reverberant">Reverberant</option>
+                        </select>
+                    </div>
+                    <div class="col-2 pl-2 pr-2">
+                        <select class="form-control mb-3" type="text" placeholder="Texture" formControlName="texture">
+                            <option value="" selected="selected" disabled>Texture</option>
+                            <option id="0" value="Sparse">Sparce</option>
+                            <option id="1" value="Dense">Dense</option>
+                        </select>
+                    </div>
+                    <div class="col-2 pl-2 pr-2">
+                        <select class="form-control mb-3" type="text" placeholder="Melody Range" formControlName="melody_range">
+                            <option value="" selected="selected" disabled>Melody Range</option>
+                            <option id="0" value="Narrow">Narrow</option>
+                            <option id="1" value="Wide">Wide</option>
+                        </select>
+                    </div>
+                    <div class="col-2 pl-2">
+                        <input class="form-control mb-3" type="text" placeholder="Lead Instrument" formControlName="lead_instrument">
+                    </div>                    
                 </div>
             </div>
         </div>

@@ -90,18 +90,33 @@ export class SongFormComponent {
     setSections(): void {
         const control = <FormArray>this.addForm.controls.sections;
         this.songDetail.sections.forEach(x => {
-            control.push(this.formBuilder.group({title: x.title, bars: x.bars}))
+            control.push(this.formBuilder.group({
+                title: x.title,
+                bars: x.bars,
+                space: x.space,
+                texture: x.texture,
+                lead_instrument: x.lead_instrument,
+                melody_range: x.melody_range
+            }))
         })
         this.formBuilder.group({
             title: [this.songDetail.sections.title, Validators.required],
-            bars: [this.songDetail.sections.bars, Validators.required]
+            bars: [this.songDetail.sections.bars, Validators.required],
+            space: [this.songDetail.sections.space],
+            texture: [this.songDetail.sections.texture],
+            lead_instrument: [this.songDetail.sections.lead_instrument],
+            melody_range: [this.songDetail.sections.melody_range]
         })
     }
 
     initSection() {
         return this.formBuilder.group({
             title: ['',Validators.required],
-            bars: ['',Validators.required]
+            bars: ['',Validators.required],
+            space: [''],
+            texture: [''],
+            lead_instrument: [''],
+            melody_range: ['']
         })
     }
 

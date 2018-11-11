@@ -20,19 +20,12 @@ body {
   font-size: 0.80rem;
 }
 
-.bars:first-child {
+.bars:nth-child(2) {
   border-left: 1px solid #aaa;
 }
 
 .bar-length-input input {
   max-width: 75px;
-}
-
-.text-ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 100%;
-  overflow: hidden;
 }
 
 .chorus {
@@ -78,7 +71,32 @@ body {
 
 .section-title {
   font-size: 10px;
+  height: 15px;
   text-transform: uppercase;
+}
+
+.section-details {
+  font-size: 10px;
+}
+
+.section-detail {
+  height: 15px;
+  margin-bottom: 1px;
+  text-transform: uppercase;
+}
+
+.section-detail:nth-child(odd) {
+  background: rgba(0,0,0,0.05);
+}
+
+.section-detail:nth-child(even) {
+  background: rgba(0,0,0,0.01);
+}
+
+
+.section-bar-length {
+  font-size: 0.8rem;
+  height: 20px;
 }
 
 .spotify-results {
